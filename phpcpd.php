@@ -46,10 +46,14 @@
 ini_set('mbstring.func_overload', 0);
 ini_set('mbstring.internal_encoding', NULL);
 
-if (strpos('@php_bin@', '@php_bin') === 0) {
-    require __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'autoload.php';
+if (file_exists(__DIR__ . '/vendor/autoload.php') ) {
+    require_once __DIR__ . '/vendor/autoload.php';
 } else {
-    require 'SebastianBergmann/PHPCPD/autoload.php';
+    if (strpos('@php_bin@', '@php_bin') === 0) {
+        require __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'autoload.php';
+    } else {
+        require 'SebastianBergmann/PHPCPD/autoload.php';
+    }
 }
 
 $textui = new SebastianBergmann\PHPCPD\TextUI\Command;
